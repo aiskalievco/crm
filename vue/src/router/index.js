@@ -19,7 +19,7 @@ export default new Router({
         if (auth) {
           let str = 'auth';
           auth = JSON.parse(auth);
-          Vue.http.options.root = 'http://localhost:44313/';
+          Vue.http.options.root = 'https://localhost:44313/';
           Vue.http.save(str, {params: auth}).then(function(response){
             let data = response.data;
             if (data !== false) {
