@@ -17,10 +17,10 @@ export default new Router({
       beforeEnter(toR, fromR, next) {
         let auth = Vue.cookie.get('auth');
         if (auth) {
-          let str = 'authorization';
+          let str = 'auth';
           auth = JSON.parse(auth);
-          Vue.http.options.root = 'http://localhost:54153/Home/';
-          Vue.http.get(str, {params: auth}).then(function(response){
+          Vue.http.options.root = 'http://localhost:44313/';
+          Vue.http.save(str, {params: auth}).then(function(response){
             let data = response.data;
             if (data !== false) {
               Vue.cookie.set('auth', JSON.stringify(auth), 1);

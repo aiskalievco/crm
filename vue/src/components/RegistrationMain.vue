@@ -115,7 +115,7 @@
             email: this.email,
           };
 
-          let url = 'registration';
+          let url = 'reg';
           if (this.isCompany) {
             url = 'organizationreg';
             dataToPass.name = this.companyName;
@@ -124,7 +124,7 @@
           }
 
           this.resource = this.$resource(url);
-          this.resource.get(dataToPass).then(function(response){
+          this.resource.save(dataToPass).then(function(){
             this.$router.push('/');
           }, function(error){
             console.log(error);});

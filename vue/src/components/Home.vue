@@ -31,9 +31,6 @@
       },
       computed: {
         role() {
-          console.log("Storage: "+this.$store.getters.getRole);
-          console.log("Name: "+roles.roleAdmin);
-          console.log("Compare: "+this.$store.getters.getRole.toLowerCase().localeCompare(roles.roleAdmin.toLowerCase()));
           if (this.$store.getters.getRole.toLowerCase().localeCompare(roles.roleAdmin.toLowerCase()) === 0)
             return "Аккаунт Организации";
           else return "Аккаунт Пользователя"

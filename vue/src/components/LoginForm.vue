@@ -49,8 +49,8 @@
           let login = this.login;
           let password = this.password;
           if (login && password) {
-            this.resource = this.$resource('authorization');
-            this.resource.get({login, password}).then(
+            this.resource = this.$resource('auth');
+            this.resource.save({login, password}).then(
               function (response) {
                 let data = response.data;
                 if (data !== false) {

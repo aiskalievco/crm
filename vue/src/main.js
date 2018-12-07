@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 Vue.use(VueCookie);
 Vue.use(VueResource);
 
-Vue.http.options.root = 'http://localhost:54153/Home/';
+Vue.http.options.root = 'http://localhost:44313/';
 
 new Vue({
   el: '#app',
