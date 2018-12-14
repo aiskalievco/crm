@@ -28,10 +28,10 @@
             <ul class="list courses-list">
                 <li v-for="course in courses" class="courses-list__item">
                     <ul class="list courses-list__info">
-                        <li><span>Name: </span> {{ course.getName() }}</li>
-                        <li><span>Description: </span> {{ course.getDescription() }}</li>
+                        <li><span>Name: </span> {{ course.name }}</li>
+                        <li><span>Description: </span> {{ course.description }}</li>
                         <li><button @click.prevent="deleteCourse"
-                                    class="course-delete" :value="course.getId()">delete</button></li>
+                                    class="course-delete" :value="course.id">delete</button></li>
                     </ul>
                 </li>
             </ul>

@@ -14,19 +14,19 @@ export default {
   },
   getters: {
     getEmail(state) {
-      return state.person.getEmail();
+      return state.person.email;
     },
     getId(state) {
-      return state.person.getId();
+      return state.person.id;
     },
     getRole(state) {
-      return state.person.getRole();
+      return state.person.role;
     },
     getLogin(state) {
-      return state.person.getLogin();
+      return state.person.login;
     },
     getPassword(state) {
-      return state.person.getPassword();
+      return state.person.password;
     },
     getCurrentPerson(state) {
       return state.person;
@@ -63,7 +63,6 @@ export default {
 
       let personData = payload;
       let person = null;
-      console.log("info from auth: " + JSON.stringify(payload));
       if (personData.hasOwnProperty('head')) {
         context.commit('setCompanyName', personData.name);
         context.commit('setCompanyDescription', personData.description);
@@ -74,10 +73,10 @@ export default {
 
         let courses = [];
 
-        for (let course in personData.courses) {
+        personData.courses.forEach(function(course, ind) {
           let tmpCourse = new Course(course.id, course.name, course.description);
           courses.push(tmpCourse);
-        }
+        });
 
         context.commit('setCourses', courses);
 

@@ -18,11 +18,11 @@ Person.prototype.getId = function() {
   return this.id;
 };
 
-Person.prototype.getEmail = function() {
+Person.prototype.getCurrentEmail = function() {
   return this.email;
 };
 
-Person.prototype.getRole = function() {
+Person.prototype.getCurrentRole = function() {
   return this.role;
 };
 
