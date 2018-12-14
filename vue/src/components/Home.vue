@@ -5,7 +5,8 @@
 
       <div v-else class="home-content">
 
-      {{ role }}
+          <organization-home v-if="!isRoleUser"></organization-home>
+          <div v-else>Role User</div>
 
       </div>
 
@@ -15,6 +16,7 @@
 <script>
   import LoginForm from './LoginForm'
   import roles from '../values/roles.json'
+  import OrganizationHome from './OrganizationHome'
     export default {
       data() {
         return {
@@ -22,7 +24,8 @@
         }
       },
       components: {
-        loginForm: LoginForm
+        loginForm: LoginForm,
+        organizationHome: OrganizationHome
       },
       methods: {
         changeIsLogged(value) {
@@ -33,8 +36,13 @@
         role() {
           if (this.$store.getters.getRole.toLowerCase().localeCompare(roles.roleAdmin.toLowerCase()) === 0)
             return "Аккаунт Организации";
-          else return "Аккаунт Пользователя"
-        }
+          else return "Аккаунт Пользователя";
+        },
+          isRoleUser() {
+              if (this.$store.getters.getRole.toLowerCase().localeCompare(roles.roleAdmin.toLowerCase()) === 0)
+                  return false;
+              else return true;
+          }
       },
       created() {
         let auth = this.$cookie.get('auth');

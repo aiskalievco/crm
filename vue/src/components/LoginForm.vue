@@ -53,7 +53,7 @@
             this.resource.save({login, password}).then(
               function (response) {
                 let data = response.data;
-                if (data !== false) {
+                if (this.validateData(data)) {
                   this.$cookie.set('auth', JSON.stringify({login, password}), 1);
                   this.$store.dispatch('loadPerson', data);
                   this.$props.changeIsLogged(true);
@@ -77,6 +77,12 @@
             }, 4000);
 
           }
+        },
+        validateData(data) {
+          if (data == false || ((typeof data) === "string" && data.localeCompare("false") === 0)
+                  || data == [])
+            return false;
+          else return true
         }
       }
     }

@@ -1,5 +1,6 @@
 import Person from './entities/person'
 let defaultPerson = new Person();
+import Course from './entities/Course'
 
 export default {
 
@@ -8,7 +9,8 @@ export default {
     companyName: '',
     companyDescription: '',
     companySpecialization: '',
-    companyId: ''
+    companyId: 1,
+    courses: []
   },
   getters: {
     getEmail(state) {
@@ -28,6 +30,12 @@ export default {
     },
     getCurrentPerson(state) {
       return state.person;
+    },
+    getCourses(state) {
+      return state.courses;
+    },
+    getCompanyId(state) {
+      return state.companyId;
     }
   },
   mutations: {
@@ -45,6 +53,9 @@ export default {
     },
     setCompanyId(state, id) {
       state.companyId = id;
+    },
+    setCourses(state, courses) {
+      state.courses = courses;
     }
   },
   actions: {
@@ -52,7 +63,7 @@ export default {
 
       let personData = payload;
       let person = null;
-
+      console.log("info from auth: " + JSON.stringify(payload));
       if (personData.hasOwnProperty('head')) {
         context.commit('setCompanyName', personData.name);
         context.commit('setCompanyDescription', personData.description);
@@ -60,6 +71,16 @@ export default {
         context.commit('setCompanyId', personData.id);
         person = new Person(personData.head.login, personData.head.password, personData.head.id,
           personData.head.email, personData.head.role);
+
+        let courses = [];
+
+        for (let course in personData.courses) {
+          let tmpCourse = new Course(course.id, course.name, course.description);
+          courses.push(tmpCourse);
+        }
+
+        context.commit('setCourses', courses);
+
       }
       else person = new Person(personData.login,personData.password,personData.id,personData.email,personData.role);
       context.commit('updatePerson', person);
