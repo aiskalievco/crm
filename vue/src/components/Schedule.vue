@@ -4,12 +4,15 @@
         <h1 class="course-component__header">Schedules</h1>
 
         <div class="course-component__button-wrapper">
-            <button class="course-component__button">Add Schedule</button>
+            <button class="course-component__button" @click="addButton">Add Schedule</button>
         </div>
 
         <hr>
 
-        <ol class="list course-component__list">
+        <add-schedule v-if="isAdding" :getSchedule="getSchedule"
+                      :courseId="courseId" :cancelAdding="cancelAdding"></add-schedule>
+
+        <ol v-else class="list course-component__list">
             <li class="course-component__item" v-for="schedule in schedules">
                 <ul class="list course-component__inner">
                     <li class="course-component__element"><span>id: </span> {{schedule.id}}</li>
@@ -27,12 +30,17 @@
 </template>
 
 <script>
+    import AddSchedule from './AddSchedule'
     export default {
         data() {
             return {
                 schedules: [],
-                resource: null
+                resource: null,
+                isAdding: false
             }
+        },
+        components: {
+          addSchedule: AddSchedule
         },
         props: {
             courseId: {}
@@ -59,6 +67,12 @@
                         this.schedules = tmp;
                     },
                 function(error){});
+            },
+            addButton() {
+                this.isAdding = true;
+            },
+            cancelAdding(value) {
+                this.isAdding = value;
             }
         },
         created() {
