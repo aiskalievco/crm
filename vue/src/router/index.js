@@ -5,6 +5,11 @@ import Register from '../components/RegistrationMain'
 import VueCookie from 'vue-cookie'
 import store from '../store'
 import Error from '../components/Error'
+import Course from '../components/CoursePage'
+import Schedule from '../components/Schedule'
+import Group from '../components/Group'
+import Room from '../components/Room'
+import Instructor from '../components/Instructor'
 
 Vue.use(Router);
 Vue.use(VueCookie);
@@ -26,6 +31,32 @@ export default new Router({
     {
       path: '*',
       redirect: '/error'
+    },
+    {
+      path: '/course/:id',
+      component: Course,
+      children: [
+        {
+          path: 'schedule',
+          component: Schedule,
+          name: 'schedule'
+        },
+        {
+          path: 'group',
+          component: Group,
+          name: 'group'
+        },
+        {
+          path: 'room',
+          component: Room,
+          name: 'room'
+        },
+        {
+          path: 'instructor',
+          component: Instructor,
+          name: 'instructor'
+        }
+      ]
     }
   ],
   mode: 'history'

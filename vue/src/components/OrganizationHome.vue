@@ -31,7 +31,9 @@
                         <li><span>Name: </span> {{ course.name }}</li>
                         <li><span>Description: </span> {{ course.description }}</li>
                         <li><button @click.prevent="deleteCourse"
-                                    class="course-delete" :value="course.id">delete</button></li>
+                                    class="course-delete" :value="course.id">delete</button>
+                            <router-link :to="/course/ + course.id"
+                                         class="link course-delete course-more">more</router-link></li>
                     </ul>
                 </li>
             </ul>
@@ -65,12 +67,11 @@
                     this.clearCourse();
                     let courses = this.courses;
                     let tmp = [];
-                    console.log("response of adding: " + response);
                     tmp.push(new Course(response.data.id, response.data.name, response.data.description));
-                    for (let course in courses) {
-                        tmp.push(course);
+                    for(let i = 0; i < courses.length; i++) {
+                        tmp.push(courses[i]);
                     }
-                    this.$store.commit('setCourses');
+                    this.$store.commit('setCourses', tmp);
                 }, function(error){});
             },
             deleteCourse(event) {
@@ -88,9 +89,9 @@
             deleteFromStore(id) {
                 let courses = this.courses;
                 let tmp = [];
-                for (let course in courses) {
-                    if (course.id !== id)
-                        tmp.push(course);
+                for (let i=0; i < courses.length; i++) {
+                    if (courses[i].id !== id)
+                        tmp.push(courses[i]);
                 }
                 this.$store.commit('setCourses', tmp);
             }
@@ -207,6 +208,20 @@
     .courses-list__wrapper h3 {
         font-size: 25px;
         margin: 20px;
+    }
+
+    .link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .course-more {
+        color: #fff;
+        font-size: 16px;
+        min-width: 60px;
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
     }
 
 </style>
