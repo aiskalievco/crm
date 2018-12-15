@@ -3,8 +3,28 @@
         <div class="course-component">
             <h1 class="course-component__header">Rooms</h1>
 
-            <div class="course-component__button-wrapper">
-                <button class="course-component__button">Add Room</button>
+            <div class="courses-component__form-wrapper">
+
+                <form action="" @submit.prevent="addData" class="courses-form">
+
+                    <h3>Add Room</h3>
+
+                    <div class="courses__input-wrapper">
+                        <label>Room number: </label><br>
+                        <input type="text" v-model="number" placeholder="Number of the room" class="courses__input">
+                    </div>
+
+                    <div class="courses__input-wrapper">
+                        <label>Room floor: </label><br>
+                        <input type="number"
+                               v-model="floor" placeholder="Floor of the room" class="courses__input">
+                    </div>
+
+                    <div class="courses__input-wrapper courses__button-wrapper">
+                        <input type="submit" class="courses__button" value="Add">
+                    </div>
+
+                </form>
             </div>
 
             <hr>
@@ -32,7 +52,9 @@
         data() {
             return {
                 data: [],
-                resource: null
+                resource: null,
+                number: '',
+                floor: 0
             }
         },
         props: {
@@ -60,6 +82,23 @@
                         this.data = tmp;
                     },
                     function(error){});
+            },
+            addData() {
+                this.resource = this.$resource('addroom');
+                this.resource.save({number: this.number, courseId: this.courseId, floor: this.floor}).then(
+                    function(response) {
+
+                        let tmp = [];
+                        tmp.push(response.data);
+                        for (let i = 0; i < this.data.length; i++) {
+                            tmp.push(this.data[i]);
+                        }
+                        this.data = tmp;
+                        this.number = '';
+                        this.floor = 0;
+
+                    }, function(error){}
+                );
             }
         },
         created() {
@@ -118,5 +157,61 @@
         border: 1px solid #0069ff;
         border-radius: 20px;
         cursor: pointer;
+    }
+
+    .courses-form {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: left;
+        display: inline-block;
+        padding: 20px;
+        background: #f1f1f1;
+        margin-bottom: 20px;
+    }
+
+    .courses-form h3 {
+        font-size: 26px;
+        margin: 10px;
+        text-align: center;
+        margin-top: 0;
+    }
+
+    .courses__input-wrapper {
+        margin-bottom: 10px;
+    }
+
+    .courses__input-wrapper label {
+        font-weight: normal;
+        font-size: 18px;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    .courses__input {
+        box-sizing: border-box;
+        padding: 8px 20px;
+        border-radius: 20px;
+        outline: none;
+        border: 1px solid #000;
+        font-size: 17px;
+    }
+
+    .courses__button {
+        outline: none;
+        padding: 8px;
+        min-width: 100px;
+        background: #0069ff;
+        color: #fff;
+        border: 1px solid #0069ff;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    .courses__button-wrapper {
+        text-align: center;
+    }
+
+    .courses-component__form-wrapper {
+        text-align: center;
     }
 </style>
