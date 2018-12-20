@@ -12,7 +12,7 @@
           </div>
 
           <organization-home v-if="!isRoleUser"></organization-home>
-          <div v-else>Role User</div>
+          <user-home v-else></user-home>
 
       </div>
 
@@ -23,6 +23,7 @@
   import LoginForm from './LoginForm'
   import roles from '../values/roles.json'
   import OrganizationHome from './OrganizationHome'
+  import UserHome from './UserHome'
     export default {
       data() {
         return {
@@ -31,7 +32,8 @@
       },
       components: {
         loginForm: LoginForm,
-        organizationHome: OrganizationHome
+        organizationHome: OrganizationHome,
+        userHome: UserHome
       },
       methods: {
         changeIsLogged(value) {

@@ -1,6 +1,7 @@
 import Person from './entities/person'
 let defaultPerson = new Person();
 import Course from './entities/Course'
+import Group from "./entities/Group";
 
 export default {
 
@@ -10,7 +11,8 @@ export default {
     companyDescription: '',
     companySpecialization: '',
     companyId: 1,
-    courses: []
+    courses: [],
+    groups: []
   },
   getters: {
     getEmail(state) {
@@ -36,6 +38,9 @@ export default {
     },
     getCompanyId(state) {
       return state.companyId;
+    },
+    getGroups(state) {
+      return state.groups;
     }
   },
   mutations: {
@@ -56,6 +61,9 @@ export default {
     },
     setCourses(state, courses) {
       state.courses = courses;
+    },
+    setGroups(state, groups) {
+      state.groups = groups;
     }
   },
   actions: {
@@ -81,7 +89,19 @@ export default {
         context.commit('setCourses', courses);
 
       }
-      else person = new Person(personData.login,personData.password,personData.id,personData.email,personData.role);
+      else {
+        person = new Person(personData.login,personData.password,personData.id,personData.email,personData.role);
+        let groups = [];
+
+        personData.groups.forEach(function(group, ind) {
+          let tmpGroup = new Group(group.id, group.name);
+          tmpGroup.course = new Course(group.course.id, group.course.name, group.course.description);
+          groups.push(tmpGroup);
+        });
+
+        context.commit('setGroups', groups);
+      }
+
       context.commit('updatePerson', person);
     }
   }
