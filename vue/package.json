@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "js-cookie": "^2.2.0",
+    "moment": "^2.23.0",
     "vue": "^2.5.2",
     "vue-cookie": "^1.1.4",
+    "vue-fullcalendar": "^1.0.9",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

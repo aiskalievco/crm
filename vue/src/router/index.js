@@ -10,6 +10,7 @@ import Schedule from '../components/Schedule'
 import Group from '../components/Group'
 import Room from '../components/Room'
 import Instructor from '../components/Instructor'
+import Calendar from '../components/Calendar'
 
 Vue.use(Router);
 Vue.use(VueCookie);
@@ -57,6 +58,12 @@ export default new Router({
           name: 'instructor'
         }
       ]
+    },
+    {
+      path: '/calendar/:id',
+      component: Calendar,
+      name: 'calendar',
+      props: true
     }
   ],
   mode: 'history'

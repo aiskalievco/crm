@@ -4,36 +4,22 @@
         <h2 class="user-home__greeting">Hello {{ person.login }}</h2>
 
         <div class="user-home__input-wrapper">
-            <input type="text" placeholder="Search for courses" class="user-home__input">
+            <input v-model="pattern" @keyup="search"
+                   type="text" placeholder="Search for courses" class="user-home__input">
         </div>
 
         <h3 v-if="isSearching" class="user-home__search-header">Search results for
             <span>{{ pattern }}</span></h3>
 
+
         <div v-if="isSearching" class="user-home__search-result">
 
             <ul v-if="courses.length" class="list user-home__search-blocks">
-                <li>
+                <li v-for="course in courses">
                     <a class="link search-block">
-                        <h3 class="search-block__header">Math</h3>
+                        <h3 class="search-block__header">{{ course.name }}</h3>
                         <p class="search-block__text">
-                            Course of KAZ nation university
-                        </p>
-                    </a>
-                </li>
-                <li>
-                    <a class="link search-block">
-                        <h3 class="search-block__header">Math</h3>
-                        <p class="search-block__text">
-                            Course of KAZ nation university
-                        </p>
-                    </a>
-                </li>
-                <li>
-                    <a class="link search-block">
-                        <h3 class="search-block__header">Math</h3>
-                        <p class="search-block__text">
-                            Course of KAZ nation university
+                            {{ course.description }}
                         </p>
                     </a>
                 </li>
@@ -50,12 +36,12 @@
 
             <ul class="list user-home__groups">
                 <li v-for="group in groups" class="user-home__group">
-                    <a class="link user-home__group-inner">
+                    <router-link :to="{name: 'calendar', params: {id: group.id}}" class="link user-home__group-inner">
                         <h3 class="user-home__group-header">{{ group.course.name + ' - ' + group.name }}</h3>
                         <p class="user-home__group-text">
                             {{ group.course.description }}
                         </p>
-                    </a>
+                    </router-link>
                 </li>
             </ul>
 
@@ -70,7 +56,21 @@
             return {
                 pattern: '',
                 isSearching: false,
-                courses: []
+                courses: [],
+                resource: null
+            }
+        },
+        methods: {
+            search() {
+                if (this.pattern) {
+                    this.isSearching = true;
+                    this.resource = this.$resource('searchcourses');
+                    this.resource.save({pattern: this.pattern}).then(
+                        function (response) {
+                            this.courses = response.data;
+                        }, function (error) {}
+                    );
+                } else this.isSearching = false;
             }
         },
         computed: {
@@ -205,7 +205,7 @@
 
     .user-home__search-blocks {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
     }
 
     .user-home__search-blocks li {
