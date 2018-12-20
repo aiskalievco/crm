@@ -5,6 +5,12 @@
 
       <div v-else class="home-content">
 
+          <div class="home-content__menu">
+              <div class="home-content__exit-wrapper">
+                  <a @click.prevent="exit" class="link home-content__exit">Exit</a>
+              </div>
+          </div>
+
           <organization-home v-if="!isRoleUser"></organization-home>
           <div v-else>Role User</div>
 
@@ -30,6 +36,10 @@
       methods: {
         changeIsLogged(value) {
           this.isLogged = value;
+        },
+        exit() {
+            this.$cookie.delete('auth');
+            this.isLogged = false;
         }
       },
       computed: {
@@ -60,5 +70,31 @@
     font-size: 25px;
     font-weight: bold;
   }
+    .link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .home-content__menu {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .home-content__exit-wrapper {
+        width: 100px;
+    }
+
+    .home-content__exit {
+        font-weight: normal;
+        font-size: 18px;
+        background: #0069ff;
+        width: 100%;
+        display: block;
+        color: white;
+        padding: 10px 5px;
+        box-sizing: border-box;
+        border-radius: 20px;
+        cursor: pointer;
+    }
 
 </style>

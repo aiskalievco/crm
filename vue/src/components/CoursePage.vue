@@ -2,20 +2,29 @@
     <div class="course-page">
         <div class="course-page__menu-wrapper">
             <ul class="list course-page__menu">
-                <router-link class="course-page__item" :to="{name: 'schedule'}" tag="li">
+                <router-link class="course-page__item" active-class="active"
+                             :to="{name: 'schedule'}" tag="li">
                     <a class="link course-page__link">Schedules</a>
                 </router-link>
-                <router-link class="course-page__item" :to="{name: 'group'}" tag="li">
+                <router-link class="course-page__item" active-class="active"
+                             :to="{name: 'group'}" tag="li">
                     <a class="link course-page__link">Groups</a>
                 </router-link>
-                <router-link class="course-page__item" :to="{name: 'room'}" tag="li">
+                <router-link class="course-page__item" active-class="active"
+                             :to="{name: 'room'}" tag="li">
                     <a class="link course-page__link">Rooms</a>
                 </router-link>
-                <router-link class="course-page__item" :to="{name: 'instructor'}" tag="li">
+                <router-link class="course-page__item" active-class="active"
+                             :to="{name: 'instructor'}" tag="li">
                     <a class="link course-page__link">Instructors</a>
                 </router-link>
             </ul>
         </div>
+
+        <router-link class="course-page__item course-page__item--new"
+                     to="/" tag="div">
+            <a class="link course-page__link">&larr; Back to Courses</a>
+        </router-link>
 
         <router-view :courseId="id"></router-view>
 
@@ -58,7 +67,7 @@
     }
 
     .course-page__item:hover {
-        background: blue;
+        background: mediumblue;
     }
 
     .course-page__link {
@@ -74,6 +83,15 @@
 
     .course-page__menu-wrapper {
         margin-bottom: 20px;
+    }
+
+    .active {
+        background: mediumblue;
+    }
+
+    .course-page__item--new {
+        display: inline-block;
+        border-radius: 20px;
     }
 
 </style>

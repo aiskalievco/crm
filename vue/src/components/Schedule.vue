@@ -15,8 +15,13 @@
         <ol v-else class="list course-component__list">
             <li class="course-component__item" v-for="schedule in schedules">
                 <ul class="list course-component__inner">
-                    <li class="course-component__element"><span>id: </span> {{schedule.id}}</li>
-                    <li class="course-component__element"><span>time: </span> {{schedule.time}}</li>
+                    <li class="course-component__element"><span>Time: </span> {{schedule.time}}</li>
+                    <li class="course-component__element"><span>Room: </span> {{schedule.room.number}}</li>
+                    <li class="course-component__element"><span>Group: </span> {{schedule.group.name}}</li>
+                    <li class="course-component__element"><span>Instructor: </span>
+                        {{schedule.Instructor.firstName + " " + schedule.Instructor.secondName}}
+                        ({{ schedule.Instructor.specialization }})
+                    </li>
                 </ul>
                 <div class="course-component__delete-wrapper">
                     <button class="course-component__delete" @click="deleteData"

@@ -32,7 +32,7 @@
                         <li><span>Description: </span> {{ course.description }}</li>
                         <li><button @click.prevent="deleteCourse"
                                     class="course-delete" :value="course.id">delete</button>
-                            <router-link :to="/course/ + course.id"
+                            <router-link :to="generateLink(course.id)"
                                          class="link course-delete course-more">more</router-link></li>
                     </ul>
                 </li>
@@ -94,6 +94,9 @@
                         tmp.push(courses[i]);
                 }
                 this.$store.commit('setCourses', tmp);
+            },
+            generateLink(id) {
+                return '/course/' + id + '/schedule';
             }
         },
         computed: {
