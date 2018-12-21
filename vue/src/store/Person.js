@@ -94,8 +94,9 @@ export default {
         let groups = [];
 
         personData.groups.forEach(function(group, ind) {
-          let tmpGroup = new Group(group.id, group.name);
-          tmpGroup.course = new Course(group.course.id, group.course.name, group.course.description);
+          let grTemp = group['group'];
+          let tmpGroup = new Group(grTemp.id, grTemp.name);
+          tmpGroup.course = new Course(grTemp.course.id, grTemp.course.name, grTemp.course.description);
           groups.push(tmpGroup);
         });
 
@@ -103,6 +104,18 @@ export default {
       }
 
       context.commit('updatePerson', person);
+    },
+    loadGroups(context, payload) {
+      let personData = payload;
+      let groups = [];
+
+      personData.forEach(function(group, ind) {
+        let tmpGroup = new Group(group.id, group.name);
+        tmpGroup.course = new Course(group.course.id, group.course.name, group.course.description);
+        groups.push(tmpGroup);
+      });
+
+      context.commit('setGroups', groups);
     }
   }
 

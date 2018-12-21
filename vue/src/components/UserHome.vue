@@ -71,6 +71,13 @@
                         }, function (error) {}
                     );
                 } else this.isSearching = false;
+            },
+            loadGroups() {
+                this.resource = this.$resource('getusersgroups');
+                this.resource.save({userId: this.person.id}).then(
+                    function(response){
+                      this.$store.dispatch('loadGroups', response.data);
+                    });
             }
         },
         computed: {
@@ -80,6 +87,9 @@
             person() {
                 return this.$store.getters.getCurrentPerson;
             }
+        },
+        mounted() {
+            this.loadGroups();
         }
     }
 </script>

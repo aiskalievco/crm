@@ -28,7 +28,8 @@
                     this.resource = this.$resource('signupgroup');
                     this.resource.save({userId: this.person.id, groupId: event.YOUR_DATA.groupId}).then(
                         function(response) {
-                            console.log('good');
+                            alert("You've benn successfully added to the course-group");
+                            this.$router.push('/');
                         }, function(error){}
                     );
                 }
