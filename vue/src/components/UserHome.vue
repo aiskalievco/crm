@@ -16,12 +16,12 @@
 
             <ul v-if="courses.length" class="list user-home__search-blocks">
                 <li v-for="course in courses">
-                    <a class="link search-block">
+                    <router-link :to="{name: 'calendaradd', params: {id: course.id}}" class="link search-block">
                         <h3 class="search-block__header">{{ course.name }}</h3>
                         <p class="search-block__text">
                             {{ course.description }}
                         </p>
-                    </a>
+                    </router-link>
                 </li>
             </ul>
 

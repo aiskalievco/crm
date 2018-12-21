@@ -11,6 +11,7 @@ import Group from '../components/Group'
 import Room from '../components/Room'
 import Instructor from '../components/Instructor'
 import Calendar from '../components/Calendar'
+import CalendarAdd from '../components/CalendarAdd'
 
 Vue.use(Router);
 Vue.use(VueCookie);
@@ -63,6 +64,12 @@ export default new Router({
       path: '/calendar/:id',
       component: Calendar,
       name: 'calendar',
+      props: true
+    },
+    {
+      path: '/calendaradd/:id',
+      component: CalendarAdd,
+      name: 'calendaradd',
       props: true
     }
   ],
